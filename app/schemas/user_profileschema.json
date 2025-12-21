@@ -1,0 +1,108 @@
+{
+    "type": "object",
+    "properties": {
+        "basic_info":{
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "date_of_birth":{
+                    "type": "string",
+                    "format": "Date",
+                    "description": "Processes it as YYYY-MM-DD but UI will show as MM-DD-YYYY"
+                },
+                "gender":{
+                    "type": "string"
+                },
+                "prev_injury":{
+                    "type": "boolean"
+                },
+                "specific_injury":{
+                    "type": "string"
+                },
+                "Weight":{
+                    "type": "integer"
+                },
+                ""
+                
+            }
+        },
+        "running_history":{
+            "type": "object",
+            "properties":{
+                "new_to_running":{
+                    "type": "boolean"
+                },
+                "trained_for_race": {
+                    "type": "boolean"
+                },
+                "trained_properties":{
+                    "type": "object",
+                    "properties":{
+                        "trained_weekly_mileage":{
+                            "type": "integer"
+                        },
+                        "trained_pace":{
+                            "type": "integer"
+                        }
+
+                    }
+                },
+                "weekly_mileage":{
+                    "type": "integer"
+                },
+                "running_how_long":{
+                    "type": "integer",
+                    "description": "Describes how long they've been running"
+                },
+                "Average 5K Pace":{
+                    "type": "integer",
+                    "description": "Will be in seconds regardles of pace"
+                    
+                }}},
+        "goals":{
+            "type": "object",
+            "properties":{
+                "goal_race":{
+                    "type": "string",
+                    "description": "Marathon, Half-Marathon, Ultra, etc."
+                },
+                "date_of_race":{
+                    "type": "string",
+                    "format": "Date",
+                    "description": "To determine how long the training plan should be or when it starts"
+                },
+                "goal_pace":{
+                    "type": "integer"
+                }
+            }
+        },
+        "Lifestyle":{
+            "type": "object",
+            "properties":{
+                "hours_of_sleep":{
+                    "type": "integer"
+                },
+                "diet":{
+                    "type": "string"
+                }
+            }
+        },
+        "allOf": [
+            {
+                "if": {
+                    "properties":{
+                        "Previous Injury":{
+                            "const": true
+                        }
+                    }
+                },
+                "then":{
+                    "required":["Specific Injury"]
+                }
+            }
+            
+        ]
+            }
+        }
