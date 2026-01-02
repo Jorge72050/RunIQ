@@ -1,0 +1,30 @@
+{
+    "basic_information":{
+        "name": "Jorge Nunez",
+        "date_of_birth": "2004-12-15",
+        "gender": "Male",
+        "prev_injury": false,
+        "specific_injury": null,
+        "weight": 150
+    },
+    "running_history":{
+        "new_to_running": false,
+        "trained_for_race": true,
+        "trained_properties":{
+            "trained_weekly_mileage": 30,
+            "trained_pace": 480
+        },
+        "weekly_mileage": 20,
+        "running_how_long": 18,
+        "average_5k_pace": 450
+    },
+    "goals":{
+        "goal_race": "Marathon",
+        "date_of_race": "2026-02-15",
+        "goal_pace": 450
+    },
+    "lifestyle":{
+        "hours_of_sleep": 7,
+        "diet": ""
+    }
+}

@@ -21,10 +21,10 @@
                 "specific_injury":{
                     "type": "string"
                 },
-                "Weight":{
+                "weight":{
                     "type": "integer"
-                },
-                ""
+                }
+                
                 
             }
         },
@@ -54,13 +54,15 @@
                 },
                 "running_how_long":{
                     "type": "integer",
-                    "description": "Describes how long they've been running"
+                    "description": "Describes how long they've been running (in months)"
                 },
-                "Average 5K Pace":{
+                "average_5k_pace":{
                     "type": "integer",
                     "description": "Will be in seconds regardles of pace"
                     
-                }}},
+                    }
+                }
+            },
         "goals":{
             "type": "object",
             "properties":{
@@ -78,7 +80,7 @@
                 }
             }
         },
-        "Lifestyle":{
+        "lifestyle":{
             "type": "object",
             "properties":{
                 "hours_of_sleep":{
@@ -101,8 +103,21 @@
                 "then":{
                     "required":["Specific Injury"]
                 }
-            }
+            },
+            {
+                "if": {
+                    "properties":{
+                        "new_to_running":{
+                            "const": false
+                    
+                        }
+                    }
+                },
+                "then":{
+                    "required":["trained_properties"]
+                }
             
+            }
         ]
             }
         }
