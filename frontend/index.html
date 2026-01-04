@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+    <html>
+        <body>
+            <form id= "regForm" action= "">
+            <h1>Running Data:</h1>
+            <div class = "tab">
+                <h2>What is your name?</h2>
+                <!-- this.className essentially tells the system to rerun the code every time
+                The user changes the value of the input (i.e. typing a character, deleting, pasting..
+                Helps with error styling as CSS will highlight it as an error but is fixed)-->
+                <p><input placeholder = "First name..." oninput = "this.className = ''"></p>
+                <p><input placeholder = "Last name..." oninput = "this.className = ''"></p>
+            </div>
+
+            <div class="tab">
+                <label for="dob">What is your date of birth?</label>
+                <input type="date" id="dob" />
+            </div>
+
+
+            <div class = "tab">
+                <h2>What is your gender?</h2>
+                <button type = "button" class = "option" data_key = "gender">Male</button>
+                <button type = "button" class = "option" data_key = "gender">Female</button>
+                <button type = "button" class = "option" data_key = "gender">Other</button>
+                <button type = "button" class = "option" data_key = "gender">Prefer not to says</button>
+            </div>
+
+            <div class = "tab">
+                <h2>Have you had any significant injuries?</h2>
+                <button type = "button" class = "option" data_key = "injury">Yes</button>
+                <button type = "button" class = "option" data_key = "injury">No</button>
+            </div>
+
+            <!-- Implement this such that it only pops up if they answer yes to the previous question-->
+            <div class = "tab">
+                <h2>What kind of injury was it?</h2>
+                <button type = "button" class = "option" data_key = "injury_type">Upper-Body</button>
+                <button type = "button" class = "option" data_key = "injury_type">Lower-Body</button>
+            </div>
+            
+            <div class = "tab">
+                <h2>What is your current weight?</h2>
+                <p><input placeholder = "Weight" oninput="this.className = ''"></p>
+                <select id = "weight_unit" name = "weight_unit" data-auto-advance = "true">
+                    <option value = "lbs">lbs</option>
+                    <option value = "kg">kg</option>
+                </select>
+            </div>
+
+            <!-- Start of the running history section -->
+
+            <div class="tab transition">
+                <h2>Next, let's talk about your running history</h2>
+            </div>
+
+            <div class = "tab">
+                <h2>Are you new to running?</h2>
+                <button type = "button" class = "option" data_key = "new_to_running">Yes</button>
+                <button type = "button" class = "option" data_key = "new_to_running">No</button>
+            </div>
+
+            <div class = "tab">
+                <h2>Have you trained for a race before, such as a marathon, half-marathon, or 10k?</h2>
+                <button type = "button" class = "option" data_key = "trained_for_race">Yes</button>
+                <button type = "button" class = "option" data_key = "trained_for_race">No</button>
+            </div>
+
+            <!-- This only shows if they answered yes-->
+            <div class = "tab">
+                <h2>What was your weekly distance while training?</h2>
+                <p><input placeholder = "Weekly Distance" oninput = "this.className= ''"></p>
+                <select id = "train_distance_unit" name = "train_distance_unit" data-auto-advance = "true">
+                    <option value = "miles">Miles</option>
+                    <option value = "km">km</option>
+                </select>
+            </div>
+
+            <div class = "tab">
+                <h2>What was your race pace?</h2>
+                <!-- Fix to where they can enter a single digit for the minutes column-->
+                <p><input placeholder = "XX:XX" oninput = "this.className = ''"></p>
+                <select id = "race_pace_units" name = "race_pace_units">
+                    <option value = "miles">Miles</option>
+                    <option value = "km">km</option>
+                </select>
+            </div>
+
+            <div class = "tab">
+                <h2>What is your current weekly mileage?</h2>
+                <p><input placeholder = "Weekly distance" oninput = "this.className = ''"></p>
+                <select id = "weekly_distance_unit" name = "weekly_distance_unit" data-auto-advance = "true">
+                    <option value = "miles">Miles</option>
+                    <option value = "km">km</option>
+                </select>
+            </div>
+            
+            <div class = "tab">
+                <h2>How long have you been running?</h2>
+                <p><input placeholder = "Time" oninput = "this.className = ''"></p>
+                    <select id = "time_running" name = "time_running" data-auto-advance = "true">
+                        <option value = "months">Months</option>
+                        <option value = "years">Years</option>
+                    </select>
+            </div>
+
+            <!-- Start of goals section-->
+            <div class="tab transition">
+                <h2>Now, let's see about your goals</h2>
+            </div>
+
+            <div class = "tab">
+                <h2>What is your goal race distance?</h2>
+                <button type = "button" class = "option" data_key = "goal_race">Marathon</button>
+                <button type = "button" class = "option" data_key = "goal_race">Half-Marathon</button>
+                <button type = "button" class = "option" data_key = "goal_race">10k</button>
+            </div>
+
+            <div class="tab">
+                <label for="race_date">What is the date of your race</label>
+                <input type="date" id="race_date" />
+            </div>
+
+            <div class = "tab">
+                <h2>What is your goal pace?</h2>
+                <p><input placeholder = "XX:XX" oninput = "this.className = ''"></p>
+                    <select id = "pace_units" name = "pace_units" data-auto-advance = "true">
+                        <option value = min/mile>min/mile</option>
+                        <option value = min/km>min/km</option>
+                    </select>
+            </div>
+
+        <!-- Start of Lifestyle section-->
+
+        <div class="tab transition">
+            <h2>Lastly, let's talk about your lifestle</h2>
+        </div>
+
+        <!-- Format this such that you select one, and you -->
+        <div class = "tab">
+            <h2>What is your diet like? Select any that apply</h2>
+            <button type = "button" class = "option" data_key = "diet_type">Vegetarian</button>
+            <button type = "button" class = "option" data_key = "diet_type">Vegan</button>
+            <button type = "button" class = "option" data_key = "diet_type">Keto</button>
+            <button type = "button" class = "option" data_key = "diet_type">Paleo</button>
+            <button type = "button" class = "option" data_key = "diet_type">Prefer not to say</button>
+        </div>
+
+        <div class = "tab">
+            <h2>How many hours of sleep do you get per night (on average)?</h2>
+            <p><input placeholder = "hours" oninput = "this.className = ''"></p>
+        </div>
+
+        <div class = "tab">
+            <h2>Do you actively strength train?</h2>
+            <button type = "button" class = "option" data_key = "workout">Yes</button>
+            <button type = "button" class = "option" data_key = "workout">No</button>
+        </div>
+
+        <div class="nav-buttons">
+            <button type="button" id="prevBtn">Back</button>
+            <button type="button" id="nextBtn">Next</button>
+        </div>
+
+            </form>
+            <script src="app.js"></script>
+    </body>
+</html>
