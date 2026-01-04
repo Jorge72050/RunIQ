@@ -15,8 +15,7 @@
             "trained_pace": 480
         },
         "weekly_mileage": 20,
-        "running_how_long": 18,
-        "average_5k_pace": 450
+        "running_how_long": 18
     },
     "goals":{
         "goal_race": "Marathon",
