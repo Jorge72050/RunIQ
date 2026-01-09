@@ -1,0 +1,97 @@
+# app/schemas/profile_schema.py
+
+PROFILE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "basic_info": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "date_of_birth": {"type": "string", "format": "date"},
+                "gender": {"type": "string"},
+                "prev_injury": {"type": "boolean"},
+                "specific_injury": {"type": "string"},
+                "weight": {"type": "integer"}
+            },
+            "required": ["name", "date_of_birth", "gender", "prev_injury", "weight"]
+        },
+
+        "running_history": {
+            "type": "object",
+            "properties": {
+                "new_to_running": {"type": "boolean"},
+                "trained_for_race": {"type": "boolean"},
+                "trained_properties": {
+                    "type": "object",
+                    "properties": {
+                        "trained_weekly_mileage": {"type": "integer"},
+                        "trained_pace": {"type": "integer"}
+                    }
+                },
+                "weekly_mileage": {"type": "integer"},
+                "running_how_long": {"type": "integer"}
+            },
+            "required": ["new_to_running", "trained_for_race"]
+        },
+
+        "goals": {
+            "type": "object",
+            "properties": {
+                "goal_race": {"type": "string"},
+                "date_of_race": {"type": "string", "format": "date"},
+                "goal_pace": {"type": "integer"}
+            },
+            "required": ["goal_race", "date_of_race"]
+        },
+
+        "lifestyle": {
+            "type": "object",
+            "properties": {
+                "hours_of_sleep": {"type": "integer"},
+                "diet": {"type": "string"}
+            }
+        }
+    },
+
+    "required": ["basic_info", "running_history", "goals"],
+
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "basic_info": {
+                        "properties": {
+                            "prev_injury": {"const": True}
+                        }
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "basic_info": {
+                        "required": ["specific_injury"]
+                    }
+                }
+            }
+        },
+
+        {
+            "if": {
+                "properties": {
+                    "running_history": {
+                        "properties": {
+                            "new_to_running": {"const": False}
+                        }
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "running_history": {
+                        "required": ["trained_properties"]
+                    }
+                }
+            }
+        }
+    ]
+}

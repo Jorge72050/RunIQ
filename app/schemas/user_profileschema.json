@@ -1,123 +1,105 @@
 {
-    "type": "object",
-    "properties": {
-        "basic_info":{
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "date_of_birth":{
-                    "type": "string",
-                    "format": "Date",
-                    "description": "Processes it as YYYY-MM-DD but UI will show as MM-DD-YYYY"
-                },
-                "gender":{
-                    "type": "string"
-                },
-                "prev_injury":{
-                    "type": "boolean"
-                },
-                "specific_injury":{
-                    "type": "string"
-                },
-                "weight":{
-                    "type": "integer"
-                }
-                
-                
-            }
+  "type": "object",
+  "properties": {
+    "basic_info": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "date_of_birth": {
+          "type": "string",
+          "format": "date",
+          "description": "Processes as YYYY-MM-DD but UI shows MM-DD-YYYY"
         },
-        "running_history":{
-            "type": "object",
-            "properties":{
-                "new_to_running":{
-                    "type": "boolean"
-                },
-                "trained_for_race": {
-                    "type": "boolean"
-                },
-                "trained_properties":{
-                    "type": "object",
-                    "properties":{
-                        "trained_weekly_mileage":{
-                            "type": "integer"
-                        },
-                        "trained_pace":{
-                            "type": "integer"
-                        }
+        "gender": { "type": "string" },
+        "prev_injury": { "type": "boolean" },
+        "specific_injury": { "type": "string" },
+        "weight": { "type": "integer" }
+      },
+      "required": ["name", "date_of_birth", "gender", "prev_injury", "weight"]
+    },
 
-                    }
-                },
-                "weekly_mileage":{
-                    "type": "integer"
-                },
-                "running_how_long":{
-                    "type": "integer",
-                    "description": "Describes how long they've been running (in months)"
-                },
-                "average_5k_pace":{
-                    "type": "integer",
-                    "description": "Will be in seconds regardles of pace"
-                    
-                    }
-                }
-            },
-        "goals":{
-            "type": "object",
-            "properties":{
-                "goal_race":{
-                    "type": "string",
-                    "description": "Marathon, Half-Marathon, Ultra, etc."
-                },
-                "date_of_race":{
-                    "type": "string",
-                    "format": "Date",
-                    "description": "To determine how long the training plan should be or when it starts"
-                },
-                "goal_pace":{
-                    "type": "integer"
-                }
-            }
+    "running_history": {
+      "type": "object",
+      "properties": {
+        "new_to_running": { "type": "boolean" },
+        "trained_for_race": { "type": "boolean" },
+        "trained_properties": {
+          "type": "object",
+          "properties": {
+            "trained_weekly_mileage": { "type": "integer" },
+            "trained_pace": { "type": "integer" }
+          }
         },
-        "lifestyle":{
-            "type": "object",
-            "properties":{
-                "hours_of_sleep":{
-                    "type": "integer"
-                },
-                "diet":{
-                    "type": "string"
-                }
-            }
-        },
-        "allOf": [
-            {
-                "if": {
-                    "properties":{
-                        "Previous Injury":{
-                            "const": true
-                        }
-                    }
-                },
-                "then":{
-                    "required":["Specific Injury"]
-                }
-            },
-            {
-                "if": {
-                    "properties":{
-                        "new_to_running":{
-                            "const": false
-                    
-                        }
-                    }
-                },
-                "then":{
-                    "required":["trained_properties"]
-                }
-            
-            }
-        ]
-            }
+        "weekly_mileage": { "type": "integer" },
+        "running_how_long": {
+          "type": "integer",
+          "description": "Months running"
         }
+      },
+      "required": ["new_to_running", "trained_for_race"]
+    },
+
+    "goals": {
+      "type": "object",
+      "properties": {
+        "goal_race": { "type": "string" },
+        "date_of_race": {
+          "type": "string",
+          "format": "date"
+        },
+        "goal_pace": { "type": "integer" }
+      },
+      "required": ["goal_race", "date_of_race"]
+    },
+
+    "lifestyle": {
+      "type": "object",
+      "properties": {
+        "hours_of_sleep": { "type": "integer" },
+        "diet": { "type": "string" }
+      }
+    }
+  },
+
+  "required": ["basic_info", "running_history", "goals"],
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "basic_info": {
+            "properties": {
+              "prev_injury": { "const": true }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "basic_info": {
+            "required": ["specific_injury"]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "running_history": {
+            "properties": {
+              "new_to_running": { "const": false }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "running_history": {
+            "required": ["trained_properties"]
+          }
+        }
+      }
+    }
+  ]
+}

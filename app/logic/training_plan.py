@@ -1,9 +1,10 @@
 # app/logic/training_plan.py
 
 from datetime import datetime
-from all_workouts import track_glossary, track_workouts, tempo_workouts, glossary_tempo, \
+from app.logic.all_workouts import track_glossary, track_workouts, tempo_workouts, glossary_tempo, \
     hill_workouts, glossary_hills,strcond_workouts, shakeouts_workouts, introduction_runners, \
-    mobility_workouts, cross_and_mobility_workouts, longrun_workouts
+    mobility_workouts, cross_and_mobility_workouts, longrun_workouts, newrunner_chillruns, \
+    newrunner_tempo_runs, newrunner_longruns
 
 # Based on Strava's marathon prep article + health factors that commonly affect running
 # Average starting time derived from RunRepeat's article on times based on gender + percentile
@@ -24,9 +25,6 @@ def build_plan(profile):
     age = (datetime.today() - datetime(dob[0], dob[1], dob[2])) // 365
     longrun_day = profile["goals"]["longrun_day"]
     plan_length = profile["goals"]["plan_length"]
-
-    # If new to running, start out with lower intensity work, basic mileage - 
-    # Then get to real workout plan. Ease them into running
     
     # Otherwise, they can jump into the plan
     # Will determine average times based on male or female - assuming mostly new runners. 
@@ -93,8 +91,6 @@ def build_plan(profile):
             plan = basic_mar_plan(new_to_running, plan, current_date, date_of_race)
         case "Half-Marathon":
             plan = basic_halfmar_plan(new_to_running, plan, current_date, date_of_race)
-        case "10k":
-            plan = basic_10k_plan(new_to_running, plan, current_date, date_of_race)
 
 # Plan keys formatted as "Week x, month_name day (YYYY-MM-DD)"
 
@@ -186,9 +182,9 @@ def basic_halfmar_plan(new_to_running, plan, current_date, date_of_race):
             current_date + datetime.timedelta(days=1)
     return plan
 
-def basic_10k_plan(goal_distance, plan, current_date, date_of_race):
-    pass
+# Say new runner plan is simply run, tempo, rest, run tempo, rest, longer run
 
+############ REFACTOR THIS CODE ######################
 def basic_newrunner_plan(goal_distance, plan, current_date, date_of_race):
     match goal_distance:
         case "Marathon":
@@ -203,9 +199,7 @@ def basic_newrunner_plan(goal_distance, plan, current_date, date_of_race):
                     month_name = current_date.strftime("B%")
                     day = current_date.day
                     curr_key = f"Week {counter},{month_name} {datetime.ordinal(day)} ({current_date})"
-                    match d:
-                        case 1:
-                            current_plan[curr_key] = introduction_runners[1]
+                    newrunner_weeklayout(w, d, current_plan, curr_key)
 
         case "Half-Marathon":
             for w in range(1,4):
@@ -219,11 +213,7 @@ def basic_newrunner_plan(goal_distance, plan, current_date, date_of_race):
                     month_name = current_date.strftime("B%")
                     day = current_date.day
                     curr_key = f"Week {counter},{month_name} {datetime.ordinal(day)} ({current_date})"
-                    match d:
-                        case 1:
-                            pass
-        case "10k":
-            pass
+                    newrunner_weeklayout(w, d, current_plan, curr_key)
 
 def ordinal(n):
     if 11 <= n % 100 <= 13:
@@ -242,3 +232,20 @@ def compute_plan_start(request_date, longrun_day):
     start_date = longrun_date + datetime.timedelta(days=1)
 
     return start_date
+
+def newrunner_weeklayout(w, d, current_plan, curr_key):
+    match d:
+        case 1:
+            current_plan[curr_key] = newrunner_chillruns[w]
+        case 2:
+            current_plan[curr_key] = newrunner_tempo_runs[w]
+        case 3:
+            current_plan[curr_key] = "Strength and Conditioning"
+        case 4:
+            current_plan[curr_key] = "Rest and Recovery"
+        case 5:
+            current_plan[curr_key] = newrunner_chillruns[w*2]
+        case 6:
+            current_plan[curr_key] = newrunner_tempo_runs[w*2]
+        case 7:
+            current_plan[curr_key] = newrunner_longruns[w]

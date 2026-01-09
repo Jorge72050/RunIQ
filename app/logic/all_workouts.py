@@ -377,23 +377,42 @@ mobility_workouts = {
 cross_and_mobility_workouts = {
     1: "hello"
 }
-introduction_runners = {
-    1: {         
-    "warmup_km": 1,
-    "workout": f"2 mile jog, any pace",
-    "cooldown_km": 1,
-    "notes": "This is your first run - just aim to run for 2 miles at whichever pace you want. Your body \
-    will take some time to get acclimated to running so running will be relatively light the next few months"
-    },
 
-    2: {"Strength and Conditioning": "work on lower body strength and stretching"
-    },
+SHORTRUN_BASE_MILEAGE = 2  # starting distance in km for simple runs
+LONGRUN_BASE_MILEAGE = 4 # starting distance in km for longer runs
+TEMPO_BASE = 1    # starting distance in km for tempo runs
 
-    3: {
-    "warmup_km": 1,
-    "workout": f"2 mile jog, any pace",
-    "cooldown_km": 1,
-    },
-
-    4: {"Recover and rest"}
+newrunner_chillruns = {
+    week: {
+        "warmup_km": 1,
+        "workout": f"{SHORTRUN_BASE_MILEAGE + week - 1} km easy jog",
+        "recovery": "Walk if needed",
+        "cooldown_km": 1,
+        "notes": f"Week {week}: Run {SHORTRUN_BASE_MILEAGE + week - 1} km at an easy, comfortable pace. Focus on running continuously and finishing feeling good."
     }
+    for week in range(1, 17)  # 8 workouts
+}
+
+newrunner_tempo_runs = {
+    week: {
+        "warmup_km": 1,
+        "workout": f"{TEMPO_BASE + week/2:.1f} km at comfortably hard pace",
+        "recovery": "1–2 min easy walk or jog between segments",
+        "cooldown_km": 1,
+        "notes": f"Week {week}: Warm up 1 km. Run {TEMPO_BASE + week/2:.1f} km at a slightly harder pace than your easy runs. Focus on effort, not speed. Cool down 1 km."
+    }
+    for week in range(1, 17)  # 8 workouts
+}
+
+newrunner_longruns = {
+    week: {
+        "warmup_km": 1,
+        "workout": f"{LONGRUN_BASE_MILEAGE + week - 1} km easy jog",
+        "recovery": "Walk if needed",
+        "cooldown_km": 1,
+        "notes": f"Week {week}: Run {LONGRUN_BASE_MILEAGE + week - 1} km at an easy, comfortable pace. Focus on running continuously and finishing feeling good."
+    }
+    for week in range(1, 9)  # 8 workouts
+}
+
+
